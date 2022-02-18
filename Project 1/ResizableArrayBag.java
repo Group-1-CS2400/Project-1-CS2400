@@ -249,17 +249,17 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       @SuppressWarnings("unchecked")
       ResizableArrayBag<T> bag4 = new ResizableArrayBag();
       T[] Intersectionbag = bag2.toArray();
-      int i=0
-      int ii=0
-      while(i <this.getCurrentSize() && ii < bag2.getCurrentSize())
-                {
-                if (this.[i] == bag2[ii])
+      int i=0;
+      int ii=0;
+      while (i <this.getCurrentSize() && ii < bag2.getCurrentSize())
+       {
+                if (this.bag[i] == this.bag2[ii])
                 {
                    bag4.add(Intersectionbag[i]);
                     i++;
                     ii++;
                 }
-                else if (bag1[i] >> bag2[ii])
+                else if (this.bag[i] >> this.bag2[ii])
                 {
                     ii++;
                 }
@@ -267,6 +267,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
                 {
                     i++;
                 }
+        }
    }
    public BagInterface<T> difference(BagInterface<T> bag2)
    {

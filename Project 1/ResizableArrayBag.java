@@ -231,17 +231,17 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       T[] unionbag = bag2.toArray();
       int i=0;
       int j=0;
-      for (i < this.getCurrentSize())
-      {
-         bag3.add(bag[i]);
-         i++;
-      }
-      for (j < bag2.getCurrentSize())
-      {
-         bag3.add(unionbag[j]);
-         j++;
-      }
-      return bag3;
+      	for (i < this.getCurrentSize())
+     	 {
+        	 bag3.add(bag[i]);
+        	 i++;
+     	 }
+      	for (j < bag2.getCurrentSize())
+     	 {
+       	 	 bag3.add(unionbag[j]);
+	  	j++;
+     	 }
+     	 return bag3;
    }
    public BagInterface<T> intersection(BagInterface<T> bag2)
    {
@@ -251,8 +251,8 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       T[] Intersectionbag = bag2.toArray();
       int i=0;
       int ii=0;
-      while (i <this.getCurrentSize() && ii < bag2.getCurrentSize())
-       {
+     	 while (i <this.getCurrentSize() && ii < bag2.getCurrentSize())
+      	 {
                 if (this.bag[i] == this.bag2[ii])
                 {
                    bag4.add(Intersectionbag[i]);
@@ -267,7 +267,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
                 {
                     i++;
                 }
-        }
+       	 }
    }
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
@@ -277,7 +277,19 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       T[] Differencebag=bag2.toArray();
       int i=0;
       int ii=0;
-      while
+      	while(i<=this.length)
+      	{
+		if (i<this.[i] == this.bag2[ii])
+			{
+				Remove this.[i];
+				i++;
+			}
+		else 
+		{
+			bag5.add(Differencebag[i]);
+			
+		}
+      	}
 
    }
 } // end ResizableArrayBag

@@ -274,7 +274,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       checkintegrity();
       @SuppressWarnings("unchecked")
       ResizableArrayBag<T> bag5 = new ResizableArrayBag();
-      T[] Differencebag=bag2.toArray();
+      T[] Differencebag=bag.toArray();
       int i=0;
       int ii=0;
       if (this.bag2[]= null)

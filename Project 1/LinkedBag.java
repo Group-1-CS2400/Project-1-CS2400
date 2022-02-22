@@ -200,4 +200,19 @@ public final class LinkedBag<T> implements BagInterface<T>
 
 
 	} // end Node
+	public void union(Node n1, Node n2)
+	{
+		Node copy1 = n1;
+		Node copy2 = n2;
+		
+		while (copy1 != null)
+		{
+			push(copy1.data);
+			copy1 = copy1.next
+		}
+		while (copy2 != null)
+		{
+			if (!ifPresent())
+		}
+	}
 } // end LinkedBag

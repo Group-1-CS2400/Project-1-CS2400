@@ -279,15 +279,18 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       int ii=0;
       	while(i<=this.length)
       	{
-		if (i<this.[i] == this.bag2[ii])
-			{
-				Remove this.[i];
-				i++;
-			}
-		else 
+		while(this.[i] : bag2{ii})
 		{
-			bag5.add(Differencebag[i]);
+			if (i<this.[i] == this.bag2[ii])
+				{
+					Remove this.[i];
+					i++;
+				}
+			else 
+				{
+				bag5.add(Differencebag[i]);
 			
+				}
 		}
       	}
 

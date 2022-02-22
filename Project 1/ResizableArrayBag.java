@@ -277,6 +277,13 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       T[] Differencebag=bag2.toArray();
       int i=0;
       int ii=0;
+      if (this.bag2[]= null)
+      {
+      System.out.println("Bag 2 is null and cannot execute the command")
+      }
+      else
+      {
+      
       	while(i<=this.length)
       	{
 		while(this.[i] : bag2[ii])
@@ -293,6 +300,6 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
 				}
 		}
       	}
-
+	}
    }
 } // end ResizableArrayBag

@@ -5,23 +5,23 @@ import java.util.Arrays;
    @author Frank M. Carrano, Timothy M. Henry
    @version 5.0
 */
-public final class ResizableArrayBag<T> implements BagInterface<T>
+public class ResizeableArrayBag<T> implements BagInterface<T>
 {
-	private T[] bag[][]; // Cannot be final due to doubling
+	private T[] bag; // Cannot be final due to doubling
 	private int numberOfEntries;
    private boolean integrityOK = false;
 	private static final int DEFAULT_CAPACITY = 25; // Initial capacity of bag
 	private static final int MAX_CAPACITY = 10000;
 
 	/** Creates an empty bag whose initial capacity is 25. */
-	public ResizableArrayBag() 
+	public ResizeableArrayBag() 
 	{
 		this(DEFAULT_CAPACITY);
 	} // end default constructor
 
 	/** Creates an empty bag having a given initial capacity.
 	    @param initialCapacity  The integer capacity desired. */
-	public ResizableArrayBag(int initialCapacity)
+	public ResizeableArrayBag(int initialCapacity)
 	{
       checkCapacity(initialCapacity);
       
@@ -35,7 +35,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
 
 	/** Creates a bag containing given entries.
 	    @param contents  An array of objects. */
-   public ResizableArrayBag(T[] contents) 
+   public ResizeableArrayBag(T[] contents) 
    {
       checkCapacity(contents.length);
       bag = Arrays.copyOf(contents, contents.length);
@@ -48,7 +48,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        @return  True. */
 	public boolean add(T newEntry)
 	{
-		checkintegrity();
+		checkIntegrity();
       if (isArrayFull())
       {
          doubleCapacity();
@@ -64,7 +64,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        @return  A newly allocated array of all the entries in this bag. */
 	public T[] toArray() 
 	{
-		checkintegrity();
+		checkIntegrity();
       
       // The cast is safe because the new array contains null entries.
       @SuppressWarnings("unchecked")
@@ -96,7 +96,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        @return  The number of times anEntry appears in this ba. */
 	public int getFrequencyOf(T anEntry)
 	{
-		checkintegrity();
+		checkIntegrity();
       int counter = 0;
       
       for (int index = 0; index < numberOfEntries; index++)
@@ -115,7 +115,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        @return  True if this bag contains anEntry, or false otherwise. */
    public boolean contains(T anEntry)
 	{
-		checkintegrity();
+		checkIntegrity();
       return getIndexOf(anEntry) > -1; // or >= 0
 	} // end contains
    
@@ -131,7 +131,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        was successful, or null. */
 	public T remove()
 	{
-		checkintegrity();
+		checkIntegrity();
       T result = removeEntry(numberOfEntries - 1);
       return result;
 	} // end remove
@@ -141,7 +141,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        @return  True if the removal was successful, or false if not. */
 	public boolean remove(T anEntry)
 	{
-		checkintegrity();
+		checkIntegrity();
       int index = getIndexOf(anEntry);
       T result = removeEntry(index);
       return anEntry.equals(result);
@@ -150,7 +150,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
  	// Locates a given entry within the array bag.
 	// Returns the index of the entry, if located,
 	// or -1 otherwise.
-   // Precondition: checkintegrity has been called.
+   // Precondition: checkIntegrity has been called.
 	private int getIndexOf(T anEntry)
 	{
 		int where = -1;
@@ -176,7 +176,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
    // Removes and returns the entry at a given index within the array.
    // If no such entry exists, returns null.
    // Precondition: 0 <= givenIndex < numberOfEntries.
-   // Precondition: checkintegrity has been called.
+   // Precondition: checkIntegrity has been called.
 	private T removeEntry(int givenIndex)
 	{
 		T result = null;
@@ -217,90 +217,79 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
    } // end checkCapacity
    
    // Throws an exception if receiving object is not initialized.
-   private void checkintegrity()
+   private void checkIntegrity()
    {
       if (!integrityOK)
-         throw new SecurityException ("ArrayBag object is corrupt.");
-   } // end checkintegrity
+         throw new SecurityException("ArrayBag object is corrupt.");
+   } // end checkIntegrity
+   
+   @Override
+   public BagInterface<T> union(BagInterface<T> other){
 
-   public BagInterface<T> union(BagInterface<T> bag2){
+      checkIntegrity();
+      ResizeableArrayBag<T> bagUnion = new ResizeableArrayBag<T>();
+      T[] unionBag = other.toArray();
 
-      checkintegrity();
-      @SuppressWarnings("unchecked")
-      ResizableArrayBag<T> bag3 = new ResizableArrayBag();
-      T[] unionBag = bag2.toArray();
-      int i=0;
-      int ii=0;
-      	for (i < this.getCurrentSize())
-     	 {
-        	 bag3.add(bag[i]);
-        	 i++;
-     	 }
-      	for (ii < bag2.getCurrentSize())
-     	 {
-       	 	 bag3.add(unionBag[ii]);
-	  	ii++;
-     	 }
-     	 return bag3;
+      for (int i = 0; i < this.numberOfEntries; i++)
+     	{
+         bagUnion.add(bag[i]);
+     	}
+      for (int ii = 0; ii < other.getCurrentSize(); ii++)
+     	{
+         bagUnion.add(unionBag[ii]);
+     	}
+     	 return bagUnion;
    }
-   public BagInterface<T> intersection(BagInterface<T> bag2)
-   {
-      checkintegrity();
-      @SuppressWarnings("unchecked")
-      ResizableArrayBag<T> bag4 = new ResizableArrayBag();
-      T[] intersectionBag = bag2.toArray();
-      int i=0;
-      int ii=0;
-     	 while (i <this.getCurrentSize() && ii < bag2.getCurrentSize())
-      	 {
-                if (this.bag[i] == this.bag2[ii])
-                {
-                   bag4.add(intersectionBag[i]);
-                    i++;
-                    ii++;
-                }
-                else if (this.bag[i] >> this.bag2[ii])
-                {
-                    ii++;
-                }
-                else
-                {
-                    i++;
-                }
-       	 }
-   }
-   public BagInterface<T> difference(BagInterface<T> bag2)
-   {
-      checkintegrity();
-      @SuppressWarnings("unchecked")
-      ResizableArrayBag<T> bag5 = new ResizableArrayBag();
-      T[] differenceBag=bag.toArray();
-      int i=0;
-      int ii=0;
-      if (this.bag2[]= null)
-      {
-      System.out.println("Bag 2 is null and cannot execute the command")
+
+   @Override
+   public BagInterface<T> intersection(BagInterface<T> other)
+   {  
+      // Check the integrity
+      checkIntegrity();
+      // The RAB we will return
+      ResizeableArrayBag<T> bagIntersection = new ResizeableArrayBag<T>();
+
+      // Check if anything is empty
+      if(isEmpty() || other == null || other.isEmpty()){
+         return bagIntersection;
       }
-      else
-      {
-      
-      	while (i<=bag1.length[i])
-      	{
-		if (bag1[i] == bag2[ii])
-		{
-			remove bag1[i]
-			i++
-		}
-		else
-		{
-			j++
-		}
-		else if (i = bag1.length && bag1[i] != bag2[i]
-		{
-		differenceBag add.bag1[i]
-		}
-	}
+
+      // The other bag's copy
+      ResizeableArrayBag<T> otherCopy = new ResizeableArrayBag<T>(other.toArray());
+
+      // Loop through and add our intersected items
+      for(int i = 0; i < this.numberOfEntries; i++){
+         if (otherCopy.remove(this.bag[i])){
+            bagIntersection.add(this.bag[i]);
+         }
       }
-       
+
+      return bagIntersection;
    }
-} // end ResizableArrayBag
+   
+   @Override
+   public BagInterface<T> difference(BagInterface<T> other)
+   {
+      // Check the integrity
+      checkIntegrity();
+      // The array bag we will return
+      ResizeableArrayBag<T> bagDifference = new ResizeableArrayBag<T>();
+
+      // Check if anything is empty
+      if(isEmpty() || other == null || other.isEmpty()){
+         return bagDifference;
+      }
+
+      // The other bag's copy
+      ResizeableArrayBag<T> otherCopy = new ResizeableArrayBag<T>(other.toArray());
+
+      // Loop through and add our difference items
+      for(int i = 0; i < this.numberOfEntries; i++){
+         if (!otherCopy.remove(this.bag[i])){
+            bagDifference.add(this.bag[i]);
+         }
+      }
+
+      return bagDifference;
+   }
+} // end ResizeableArrayBag

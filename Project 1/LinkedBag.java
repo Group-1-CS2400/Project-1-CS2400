@@ -215,4 +215,35 @@ public final class LinkedBag<T> implements BagInterface<T>
 			if (!ifPresent())
 		}
 	}
+	public BagInterface<T> difference(BagInterface<T> bag2)
+   {
+      checkintegrity();
+      @SuppressWarnings("unchecked")
+      ResizableArrayBag<T> bag5 = new ResizableArrayBag();
+      T[] differenceBag=bag.toArray();
+      int i=0;
+      int ii=0;
+      if (this.bag2[]= null)
+      {
+      System.out.println("Bag 2 is null and cannot execute the command")
+      }
+      else
+      {
+      
+      	while (i<=bag1.length[i])
+      	{
+		if (bag1[i] == bag2[ii])
+		{
+			remove bag1[i]
+			i++
+		}
+		else
+		{
+			j++
+		}
+		else if (i = bag1.length && bag1[i] != bag2[i]
+		{
+		differenceBag add.bag1[i]
+		}
+	}
 } // end LinkedBag

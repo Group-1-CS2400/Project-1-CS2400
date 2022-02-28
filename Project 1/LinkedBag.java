@@ -1,24 +1,25 @@
-public final class LinkedBag<T> implements BagInterface<T>
+
+public class LinkedBag<T> implements BagInterface<T>
 {
-	private Node firstNode;       // Reference to first node
+	private Node<T> firstNode;       // Reference to first node
 	private int numberOfEntries;
 
 	public LinkedBag()
 	{
 		firstNode = null;
-      numberOfEntries = 0;
+    	numberOfEntries = 0;
 	} // end default constructor
 
-	/** Adds a new entry to this bag.
+	/** Adds a new entry to this linked bag.
 	    @param newEntry  The object to be added as a new entry.
 	    @return  True. */
 	public boolean add(T newEntry) // OutOfMemoryError possible
 	{
       // Add to beginning of chain:
-		Node newNode = new Node(newEntry);
+		Node<T> newNode = new Node<T>(newEntry);
 		newNode.next = firstNode;  // Make new node reference rest of chain
                                  // (firstNode is null if chain is empty)
-      firstNode = newNode;       // New node is at beginning of chain
+      	firstNode = newNode;       // New node is at beginning of chain
 		numberOfEntries++;
       
 		return true;
@@ -33,7 +34,7 @@ public final class LinkedBag<T> implements BagInterface<T>
       T[] result = (T[])new Object[numberOfEntries]; // Unchecked cast
       
       int index = 0;
-      Node currentNode = firstNode;
+      Node<T> currentNode = firstNode;
       while ((index < numberOfEntries) && (currentNode != null))
       {
          result[index] = currentNode.data;
@@ -81,7 +82,7 @@ public final class LinkedBag<T> implements BagInterface<T>
 	public boolean remove(T anEntry)
 	{
 		boolean result = false;
-		Node nodeN = getReferenceTo(anEntry);
+		Node<T> nodeN = getReferenceTo(anEntry);
 		 
 		if (nodeN != null)
 		{
@@ -99,10 +100,10 @@ public final class LinkedBag<T> implements BagInterface<T>
 	 } // end remove	
 	// Locates a given entry within this bag.
 	// Returns a reference to the node containing the // entry, if located, or null otherwise.
-	private Node getReferenceTo(T anEntry)
+	private Node<T> getReferenceTo(T anEntry)
 	{
 		boolean found = false;
-		Node currentNode = firstNode;
+		Node<T> currentNode = firstNode;
 
 		while (!found && (currentNode != null))
 		{
@@ -131,7 +132,7 @@ public final class LinkedBag<T> implements BagInterface<T>
       int frequency = 0;
 
 		int counter = 0;
-		Node currentNode = firstNode;
+		Node<T> currentNode = firstNode;
 		while((counter < numberOfEntries) && (currentNode != null))
 		{
 			if (anEntry.equals(currentNode.getData()))
@@ -151,8 +152,8 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  True if the bag contains anEntry, or false otherwise. */
 	public boolean contains(T anEntry)
    {
-      boolean found = false;
-		Node currentNode = firstNode;
+      	boolean found = false;
+		Node<T> currentNode = firstNode;
 
 		while(!found && (currentNode != null))
 		{
@@ -165,17 +166,17 @@ public final class LinkedBag<T> implements BagInterface<T>
 		return found;
    } // end contains
 
-	private class Node
+	private class Node<T>
 	{
-	  	private T    data; // Entry in bag
-	  	private Node next; // Link to next node
+	  	private T data; // Entry in bag
+	  	private Node<T> next; // Link to next node
 
 		private Node(T dataPortion)
 		{
 			this(dataPortion, null);	
 		} // end constructor
 		
-		private Node(T dataPortion, Node nextNode)
+		private Node(T dataPortion, Node<T> nextNode)
 		{
 			data = dataPortion;
 			next = nextNode;	
@@ -189,61 +190,60 @@ public final class LinkedBag<T> implements BagInterface<T>
 		{
 			data = newData;
 		}
-		private Node getNextNode()
+		private Node<T> getNextNode()
 		{
 			return next;
-		}
-		private void setNextNode(Node nextNode)
-		{
-			next = nextNode;
 		}
 
 
 	} // end Node
-	public void union(Node n1, Node n2)
+
+	@Override
+	public BagInterface<T> union(BagInterface<T> other) 
+	{	
+		LinkedBag<T> unionized = new LinkedBag<T>();
+
+		Node<T> checkNode = firstNode;
+		while (this.firstNode != null)
+		{
+			unionized.add(firstNode.data);
+			checkNode = checkNode.next;
+		}
+		T[] otherArr = other.toArray();
+		for(T entry : otherArr){
+			unionized.add(entry);
+		}
+
+		return unionized;
+	}	
+
+	@Override
+	public BagInterface<T> intersection(BagInterface<T> other) {
+		return null;
+	}
+
+	@Override
+	public BagInterface<T> difference(BagInterface<T> other)
 	{
-		Node copy1 = n1;
-		Node copy2 = n2;
-		
-		while (copy1 != null)
-		{
-			push(copy1.data);
-			copy1 = copy1.next
-		}
-		while (copy2 != null)
-		{
-			if (!ifPresent())
-		}
+	   // The array bag we will return
+	   LinkedBag<T> bagDifference = new LinkedBag<T>();
+ 
+	//    // Check if anything is empty
+	//    if(isEmpty() || other == null || other.isEmpty()){
+	// 	  return bagDifference;
+	//    }
+ 
+	//    // The other bag's copy
+	//    ResizeableArrayBag<T> otherCopy = new ResizeableArrayBag<T>(other.toArray());
+ 
+	//    // Loop through and add our difference items
+	//    for(int i = 0; i < this.numberOfEntries; i++){
+	// 	  if (!otherCopy.remove(this.bag[i])){
+	// 		 bagDifference.add(this.bag[i]);
+	// 	  }
+	//    }
+ 
+	   return bagDifference;
 	}
-	public BagInterface<T> difference(BagInterface<T> bag2)
-   {
-      checkintegrity();
-      @SuppressWarnings("unchecked")
-      ResizableArrayBag<T> bag5 = new ResizableArrayBag();
-      T[] differenceBag=bag.toArray();
-      int i=0;
-      int ii=0;
-      if (this.bag2[]= null)
-      {
-      System.out.println("Bag 2 is null and cannot execute the command")
-      }
-      else
-      {
-      
-      	while (i<=bag1.length[i])
-      	{
-		if (bag1[i] == bag2[ii])
-		{
-			remove bag1[i]
-			i++
-		}
-		else
-		{
-			j++
-		}
-		else if (i = bag1.length && bag1[i] != bag2[i]
-		{
-		differenceBag add.bag1[i]
-		}
-	}
-} // end LinkedBag
+
+} // end LinkedBag 

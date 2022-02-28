@@ -1,25 +1,26 @@
-public class BagDriver
+import java.util.Arrays;
+
+public class ArrayBagTest 
 {
 
 	public static void main(String[] args) 
 	{
-		ResizableArrayBag<String> bag1 = new ResizableArrayBag<String>(3);
-		bag1.add("apple");
-		bag1.add("banana");
-		bag1.add("cabbage");
+		ResizeableArrayBag<String> bag1 = new ResizeableArrayBag<String>(3);
+		bag1.add("apples");
+		bag1.add("bananas");
+		bag1.add("cream");
 		System.out.println("bag1: " + Arrays.toString(bag1.toArray()));
 
-		ResizableArrayBag<String> bag2 = new ResizableArrayBag<String>(4);
-		bag2.add("banana");
-		bag2.add("banana");
+		ResizeableArrayBag<String> bag2 = new ResizeableArrayBag<String>(4);
+		bag2.add("bananas");
+		bag2.add("bananas");
 		bag2.add("doom");
 		bag2.add("extra cheese");
 		System.out.println("bag2: " + Arrays.toString(bag2.toArray()));
 		
+		System.out.print("Union is: " + Arrays.toString(bag1.union(bag2).toArray()) + " ");
+		System.out.print("Intersection is: " + Arrays.toString(bag1.intersection(bag2).toArray()) + " ");
+		System.out.print("Difference is: " + Arrays.toString(bag1.difference(bag2).toArray()) + " ");
 	}
 
-	System.out.print(bag1.resizableUnion(bag2));
-	System.out.print(bag1.resizableIntersection(bag2));
-	System.out.print(bag1.resizableDifference(bag2));
-	}
-}	
+}

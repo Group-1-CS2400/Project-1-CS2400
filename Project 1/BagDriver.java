@@ -18,8 +18,8 @@ public class BagDriver
 		
 	}
 
-	System.out.print(bag1.union(bag2));
-	System.out.print(bag1.intersection(bag2));
-	System.out.print(bag1.difference(bag2));
+	System.out.print(bag1.resizableUnion(bag2));
+	System.out.print(bag1.resizableIntersection(bag2));
+	System.out.print(bag1.resizableDifference(bag2));
 	}
 }	

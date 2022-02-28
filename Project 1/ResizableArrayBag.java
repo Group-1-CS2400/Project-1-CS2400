@@ -225,20 +225,32 @@ public class ResizeableArrayBag<T> implements BagInterface<T>
    
    @Override
    public BagInterface<T> union(BagInterface<T> other){
+      // We always gotta check integrity Mr.Dong
+      checkIntegrity(); 
+      // Begins operation to create a new bag for union
+      ResizeableArrayBag<T> bagUnion = new ResizeableArrayBag<T>(); 
+      // Sends bag type to become an array
+      T[] unionBag = other.toArray(); 
 
-      checkIntegrity();
-      ResizeableArrayBag<T> bagUnion = new ResizeableArrayBag<T>();
-      T[] unionBag = other.toArray();
-
-      for (int i = 0; i < this.numberOfEntries; i++)
+      for (int i = 0; i < this.numberOfEntries; i++) 
+      // For loop that will increment the array position
+      // so long as it's smaller than the amount of entries
      	{
          bagUnion.add(bag[i]);
+          // Will "clone" the content of the first bag into 
+          //the Union's bag so long as the condition is met
      	}
-      for (int ii = 0; ii < other.getCurrentSize(); ii++)
+      // For loop to increment the second bag's array position
+      for (int ii = 0; ii < other.getCurrentSize(); ii++) 
+      
      	{
-         bagUnion.add(unionBag[ii]);
+         //Adds the Bag contents one by one into the other bag
+         bagUnion.add(unionBag[ii]); 
+
      	}
+       // Returns the cloned bag so we can see the result
      	 return bagUnion;
+
    }
 
    @Override
@@ -250,7 +262,8 @@ public class ResizeableArrayBag<T> implements BagInterface<T>
       ResizeableArrayBag<T> bagIntersection = new ResizeableArrayBag<T>();
 
       // Check if anything is empty
-      if(isEmpty() || other == null || other.isEmpty()){
+      if(isEmpty() || other == null || other.isEmpty())
+      {
          return bagIntersection;
       }
 
@@ -258,12 +271,14 @@ public class ResizeableArrayBag<T> implements BagInterface<T>
       ResizeableArrayBag<T> otherCopy = new ResizeableArrayBag<T>(other.toArray());
 
       // Loop through and add our intersected items
-      for(int i = 0; i < this.numberOfEntries; i++){
-         if (otherCopy.remove(this.bag[i])){
+      for(int i = 0; i < this.numberOfEntries; i++)
+      {
+         if (otherCopy.remove(this.bag[i]))
+         {
             bagIntersection.add(this.bag[i]);
          }
       }
-
+      // Returns the cloned bag so we can see the result
       return bagIntersection;
    }
    
@@ -275,21 +290,25 @@ public class ResizeableArrayBag<T> implements BagInterface<T>
       // The array bag we will return
       ResizeableArrayBag<T> bagDifference = new ResizeableArrayBag<T>();
 
-      // Check if anything is empty
-      if(isEmpty() || other == null || other.isEmpty()){
+      // Check if anything is empty or unable to be constructed
+      if(isEmpty() || other == null || other.isEmpty())
+      {
          return bagDifference;
       }
 
-      // The other bag's copy
+      // Starts the copy of the second bag
       ResizeableArrayBag<T> otherCopy = new ResizeableArrayBag<T>(other.toArray());
 
-      // Loop through and add our difference items
-      for(int i = 0; i < this.numberOfEntries; i++){
-         if (!otherCopy.remove(this.bag[i])){
+      // For loop to see what's different
+      for(int i = 0; i < this.numberOfEntries; i++)
+      {
+         // If condition to remove item from the bag if there's a match
+         if (!otherCopy.remove(this.bag[i]))
+         {
             bagDifference.add(this.bag[i]);
          }
       }
-
+      // Returns the cloned bag so we can see the result
       return bagDifference;
    }
 } // end ResizeableArrayBag

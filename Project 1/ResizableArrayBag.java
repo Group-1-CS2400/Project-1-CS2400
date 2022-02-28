@@ -228,18 +228,18 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       checkintegrity();
       @SuppressWarnings("unchecked")
       ResizableArrayBag<T> bag3 = new ResizableArrayBag();
-      T[] unionbag = bag2.toArray();
+      T[] unionBag = bag2.toArray();
       int i=0;
-      int j=0;
+      int ii=0;
       	for (i < this.getCurrentSize())
      	 {
         	 bag3.add(bag[i]);
         	 i++;
      	 }
-      	for (j < bag2.getCurrentSize())
+      	for (ii < bag2.getCurrentSize())
      	 {
-       	 	 bag3.add(unionbag[j]);
-	  	j++;
+       	 	 bag3.add(unionBag[ii]);
+	  	ii++;
      	 }
      	 return bag3;
    }
@@ -248,14 +248,14 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       checkintegrity();
       @SuppressWarnings("unchecked")
       ResizableArrayBag<T> bag4 = new ResizableArrayBag();
-      T[] Intersectionbag = bag2.toArray();
+      T[] intersectionBag = bag2.toArray();
       int i=0;
       int ii=0;
      	 while (i <this.getCurrentSize() && ii < bag2.getCurrentSize())
       	 {
                 if (this.bag[i] == this.bag2[ii])
                 {
-                   bag4.add(Intersectionbag[i]);
+                   bag4.add(intersectionBag[i]);
                     i++;
                     ii++;
                 }
@@ -274,7 +274,7 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       checkintegrity();
       @SuppressWarnings("unchecked")
       ResizableArrayBag<T> bag5 = new ResizableArrayBag();
-      T[] Differencebag=bag.toArray();
+      T[] differenceBag=bag.toArray();
       int i=0;
       int ii=0;
       if (this.bag2[]= null)
@@ -284,22 +284,23 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       else
       {
       
-      	while(i<=this.length)
+      	while (i<=bag1.length[i])
       	{
-		while(this.[i] : bag2[ii])
+		if (bag1[i] == bag2[ii])
 		{
-			if (i<this.[i] == this.bag2[ii])
-				{
-					Remove this.[i];
-					i++;
-				}
-			else 
-				{
-				bag5.add(Differencebag[i]);
-			
-				}
+			remove bag1[i]
+			i++
 		}
-      	}
+		else
+		{
+			j++
+		}
+		else if (i = bag1.length && bag1[i] != bag2[i]
+		{
+		differenceBag add.bag1[i]
+		}
 	}
+      }
+       
    }
 } // end ResizableArrayBag

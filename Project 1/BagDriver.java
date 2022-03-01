@@ -5,12 +5,13 @@ public class BagDriver
 {
     public static void main(String[] args) 
 	{
+		//Setting up first bag
 		ResizeableArrayBag<String> bag1 = new ResizeableArrayBag<String>(3);
 		bag1.add(JOptionPane.showInputDialog("please input an item to add to your cart"));
 		bag1.add(JOptionPane.showInputDialog("please input another item to add to your cart"));
 		bag1.add(JOptionPane.showInputDialog("please input another item to add to your cart"));
 		System.out.println("bag1: " + Arrays.toString(bag1.toArray()));
-
+		//Setting up second bag
 		ResizeableArrayBag<String> bag2 = new ResizeableArrayBag<String>(4);
 		bag2.add(JOptionPane.showInputDialog("please input an item to add to your 2nd cart"));
 		bag2.add(JOptionPane.showInputDialog("please input another item to add to your 2nd cart"));

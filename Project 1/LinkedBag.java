@@ -1,7 +1,7 @@
 
 public class LinkedBag<T> implements BagInterface<T>
 {
-	private Node<T> firstNode;       // Reference to first node
+	private LinkedBag<T>.Node<T> firstNode;       // Reference to first node
 	private int numberOfEntries;
 
 	public LinkedBag()
@@ -11,7 +11,7 @@ public class LinkedBag<T> implements BagInterface<T>
 	} // end default constructor
 
 	/** Adds a new entry to this linked bag.
-	    @param newEntry  The object to be added as a new entry.
+	    @param firstNode2  The object to be added as a new entry.
 	    @return  True. */
 	public boolean add(T newEntry) // OutOfMemoryError possible
 	{
@@ -74,7 +74,7 @@ public class LinkedBag<T> implements BagInterface<T>
      		} // end if
       
      	return result;
-} // end remove
+	} // end remove
    
 /** Removes one occurrence of a given entry from this bag, if possible.
    	@param anEntry  The entry to be removed.
@@ -201,49 +201,83 @@ public class LinkedBag<T> implements BagInterface<T>
 	@Override
 	public BagInterface<T> union(BagInterface<T> other) 
 	{	
+		// Setting up the unionized bag
 		LinkedBag<T> unionized = new LinkedBag<T>();
 
+		// Setting up the first node to be checked
 		Node<T> checkNode = firstNode;
+		// While loop that makes sure the node isn't stupid
 		while (this.firstNode != null)
 		{
+			// adds in data for the node to cycle through
 			unionized.add(firstNode.data);
 			checkNode = checkNode.next;
 		}
-		T[] otherArr = other.toArray();
-		for(T entry : otherArr){
+		//Array for the second bag, that allows these badboys to be compared
+		T[] otherbag = other.toArray();
+		for(T entry : otherbag)
+		{
+			//once the comparison is done we slap that baby right into the brand spanking new code we didnt have any flaws whatsoever
 			unionized.add(entry);
 		}
-
+		// Returns our beautiful new bag
 		return unionized;
 	}	
-
 	@Override
-	public BagInterface<T> intersection(BagInterface<T> other) {
-		return null;
-	}
+    public BagInterface<T> intersection(BagInterface<T> other)
+   {
+	  // Sets up the first bag
+      LinkedBag<T> intersectionized = new LinkedBag<T>();
+
+		// Declaring what the first node is
+		Node<T> checkNode = firstNode;
+		// Creating a while loop to check if the null boolean returns false, Mr. Dong
+		while (checkNode != null)
+		{
+			// The == condition here allows us to check for similarities
+			if(isEmpty()|| checkNode == other || other.isEmpty())
+            {
+                intersectionized.add(firstNode.data);
+                checkNode = checkNode.next;
+            }
+			// If no similarities, then we move on
+            else
+            {
+               checkNode = checkNode.next;
+            }
+			//After it's check, we move on to the next node
+			
+        }
+
+		return intersectionized;
+	} 
+	// end of intersection method
+	
 
 	@Override
 	public BagInterface<T> difference(BagInterface<T> other)
 	{
-	   // The array bag we will return
-	   LinkedBag<T> bagDifference = new LinkedBag<T>();
- 
-	//    // Check if anything is empty
-	//    if(isEmpty() || other == null || other.isEmpty()){
-	// 	  return bagDifference;
-	//    }
- 
-	//    // The other bag's copy
-	//    ResizeableArrayBag<T> otherCopy = new ResizeableArrayBag<T>(other.toArray());
- 
-	//    // Loop through and add our difference items
-	//    for(int i = 0; i < this.numberOfEntries; i++){
-	// 	  if (!otherCopy.remove(this.bag[i])){
-	// 		 bagDifference.add(this.bag[i]);
-	// 	  }
-	//    }
- 
-	   return bagDifference;
-	}
-
+		LinkedBag<T> differencionized = new LinkedBag<T>();
+  
+		  // Declaring what the first node is
+		  Node<T> checkNode = firstNode;
+		  // Creating a while loop to check if the null boolean returns false
+		  while (checkNode != null)
+		  {
+			  //Recycled the if statement from intersection, chagned the == sign for !=, thus making the code check for dissimilarities
+			  if(isEmpty()|| checkNode != other || other.isEmpty())
+			  {
+				  differencionized.add(firstNode.data);
+				  checkNode = checkNode.next;
+			  }
+			  else
+			  {
+				 // Moves on if the first if doesn't happen.
+				 checkNode = checkNode.next;
+			  }
+			  //After it's check, we move on to the next node
+		  }
+  
+		  return differencionized;
+	  } 
 } // end LinkedBag 

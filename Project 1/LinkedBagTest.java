@@ -16,7 +16,10 @@ public class LinkedBagTest
 		bag2.add("bananas");
 		bag2.add("doom");
 		bag2.add("extra cheese");
-		System.out.print("\nUnion is: " + Arrays.toString(bag2.union(bag1).toArray()) + " ");
+
+		System.out.print("\nUnion is: " + Arrays.toString(bag1.union(bag2).toArray()) + " ");
+		System.out.print("\nIntersection is: " + Arrays.toString(bag1.intersection(bag2).toArray()) + " ");
+		System.out.print("\nDifference is: " + Arrays.toString(bag1.difference(bag2).toArray()) + " ");
 	}
 
 }
